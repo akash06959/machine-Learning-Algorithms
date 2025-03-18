@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Algorithm Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Machine Learning Algorithms</h1>
+            <div class="header-line"></div>
+        </div>
+        
+        <div class="algorithm-container glass-effect">
+            <!-- Algorithm 1 -->
+            <a href="{% url 'main:about' %}" class="text-decoration-none">
+                <div class="card bg-gradient-primary text-white algorithm-card">
+                    <div class="card-body text-center py-2">
+                        <div class="algorithm-icon">1</div>
+                        <h5 class="card-title mb-1">SLR</h5>
+                        <p class="card-text small mb-0">Simple Linear Regression for single variable prediction</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Algorithm 2 -->
+            <a href="{% url 'main:services' %}" class="text-decoration-none">
+                <div class="card bg-gradient-success text-white algorithm-card">
+                    <div class="card-body text-center py-2">
+                        <div class="algorithm-icon">2</div>
+                        <h5 class="card-title mb-1">MLR</h5>
+                        <p class="card-text small mb-0">Multiple Linear Regression with multiple features</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Algorithm 3 -->
+            <a href="{% url 'main:blog' %}" class="text-decoration-none">
+                <div class="card bg-gradient-info text-white algorithm-card">
+                    <div class="card-body text-center py-2">
+                        <div class="algorithm-icon">3</div>
+                        <h5 class="card-title mb-1">Logistic</h5>
+                        <p class="card-text small mb-0">Binary classification using sigmoid function</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Algorithm 4 -->
+            <a href="{% url 'main:contact' %}" class="text-decoration-none">
+                <div class="card bg-gradient-warning algorithm-card">
+                    <div class="card-body text-center py-2">
+                        <div class="algorithm-icon dark">4</div>
+                        <h5 class="card-title mb-1">Polynomial</h5>
+                        <p class="card-text small mb-0">Non-linear relationships using polynomial features</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Algorithm 5 -->
+            <a href="{% url 'main:dashboard' %}" class="text-decoration-none">
+                <div class="card bg-gradient-danger text-white algorithm-card">
+                    <div class="card-body text-center py-2">
+                        <div class="algorithm-icon">5</div>
+                        <h5 class="card-title mb-1">KNN</h5>
+                        <p class="card-text small mb-0">K-Nearest Neighbors for pattern recognition</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
