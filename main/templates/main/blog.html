@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog - My Website{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Our Blog</h1>
+    
+    <!-- Blog Posts Grid -->
+    <div class="row g-4">
+        <!-- Blog Post 1 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Blog Post 1">
+                <div class="card-body">
+                    <h5 class="card-title">Blog Post Title 1</h5>
+                    <p class="card-text text-muted">March 18, 2024</p>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 2 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Blog Post 2">
+                <div class="card-body">
+                    <h5 class="card-title">Blog Post Title 2</h5>
+                    <p class="card-text text-muted">March 17, 2024</p>
+                    <p class="card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post 3 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Blog Post 3">
+                <div class="card-body">
+                    <h5 class="card-title">Blog Post Title 3</h5>
+                    <p class="card-text text-muted">March 16, 2024</p>
+                    <p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %} 
