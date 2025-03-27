@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Multiple Linear Regression - Gross Revenue Prediction{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="page-title">Gross Revenue Prediction</h1>
+    <p class="lead mb-4">Enter movie details to predict its Gross Revenue</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="model-container">
+            <form id="predictionForm" onsubmit="handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="director" class="form-label">Director</label>
+                    <input type="text" class="form-control" id="director" required placeholder="e.g., Christopher Nolan">
+                </div>
+                <div class="mb-3">
+                    <label for="imdb_rating" class="form-label">IMDb Rating</label>
+                    <input type="number" class="form-control" id="imdb_rating" required min="1" max="10" step="0.1" placeholder="e.g., 8.5">
+                    <div class="form-text">Enter a rating between 1 and 10</div>
+                </div>
+                <div class="mb-3">
+                    <label for="votes" class="form-label">Number of Votes</label>
+                    <input type="number" class="form-control" id="votes" required min="1000" placeholder="e.g., 500000">
+                    <div class="form-text">Enter number of IMDb votes (minimum 1,000)</div>
+                </div>
+                <div class="mb-4">
+                    <label for="year" class="form-label">Release Year</label>
+                    <input type="number" class="form-control" id="year" required min="1900" max="2024" placeholder="e.g., 2024">
+                    <div class="form-text">Enter the movie's release year</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Predict Gross Revenue</button>
+                </div>
+            </form>
+            <div id="prediction" class="prediction-result mt-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const director = document.getElementById('director').value;
+        const imdb_rating = parseFloat(document.getElementById('imdb_rating').value);
+        const votes = parseInt(document.getElementById('votes').value);
+        const year = parseInt(document.getElementById('year').value);
+        
+        predict('mlr', [director, imdb_rating, votes, year]);
+    }
+</script>
+
+<style>
+    .prediction-result {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Logistic Regression - Hit/Flop Classification{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="page-title">Movie Success Prediction</h1>
+    <p class="lead mb-4">Enter movie details to classify it as a Hit or Flop</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="model-container">
+            <form id="predictionForm" onsubmit="handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="imdb_rating" class="form-label">IMDb Rating</label>
+                    <input type="number" class="form-control" id="imdb_rating" required min="1" max="10" step="0.1" placeholder="e.g., 8.5">
+                    <div class="form-text">Enter a rating between 1 and 10</div>
+                </div>
+                <div class="mb-3">
+                    <label for="votes" class="form-label">Number of Votes</label>
+                    <input type="number" class="form-control" id="votes" required min="1000" placeholder="e.g., 500000">
+                    <div class="form-text">Enter number of IMDb votes (minimum 1000)</div>
+                </div>
+                <div class="mb-4">
+                    <label for="revenue" class="form-label">Gross Revenue ($)</label>
+                    <input type="number" class="form-control" id="revenue" required min="100000" placeholder="e.g., 100000000">
+                    <div class="form-text">Enter gross revenue in USD (minimum $100,000)</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Predict Success</button>
+                </div>
+            </form>
+            <div id="prediction" class="prediction-result mt-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const imdb_rating = parseFloat(document.getElementById('imdb_rating').value);
+        const votes = parseInt(document.getElementById('votes').value);
+        const revenue = parseFloat(document.getElementById('revenue').value);
+        
+        // Show loading state
+        const predictionDiv = document.getElementById('prediction');
+        predictionDiv.innerHTML = `
+            <div class="prediction-result-title">Processing...</div>
+            <div class="prediction-result-value">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `;
+        predictionDiv.className = 'prediction-result mt-4 show';
+        
+        // Make prediction
+        predict('lr', [imdb_rating, votes, revenue]);
+    }
+</script>
+
+<style>
+    .prediction-result {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+
+    .prediction-result.show {
+        animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .prediction-result-title {
+        font-size: 1.2rem;
+        color: var(--text-gray);
+        margin-bottom: 1rem;
+    }
+
+    .prediction-result-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 1rem 0;
+    }
+
+    .prediction-result-value[data-result="Hit 🎯"] {
+        color: #2f855a;
+    }
+
+    .prediction-result-value[data-result="Flop 📉"] {
+        color: #c53030;
+    }
+</style>
+{% endblock %} 

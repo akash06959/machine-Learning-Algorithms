@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}K-Nearest Neighbors - Movie Success Classification{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="page-title">Success Level Classification</h1>
+    <p class="lead mb-4">Enter movie details to classify its success level</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="model-container">
+            <form id="predictionForm" onsubmit="handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="revenue" class="form-label">Gross Revenue ($)</label>
+                    <input type="number" class="form-control" id="revenue" required min="100000" placeholder="e.g., 100000000">
+                    <div class="form-text">Enter gross revenue in USD (minimum $100,000)</div>
+                </div>
+                <div class="mb-3">
+                    <label for="imdb_rating" class="form-label">IMDb Rating</label>
+                    <input type="number" class="form-control" id="imdb_rating" required min="1" max="10" step="0.1" placeholder="e.g., 8.5">
+                    <div class="form-text">Enter a rating between 1 and 10</div>
+                </div>
+                <div class="mb-4">
+                    <label for="meta_score" class="form-label">Meta Score</label>
+                    <input type="number" class="form-control" id="meta_score" required min="0" max="100" step="1" placeholder="e.g., 85">
+                    <div class="form-text">Enter Meta Score between 0 and 100</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Classify Success</button>
+                </div>
+            </form>
+            <div id="prediction" class="prediction-result mt-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const revenue = parseFloat(document.getElementById('revenue').value);
+        const imdb_rating = parseFloat(document.getElementById('imdb_rating').value);
+        const meta_score = parseFloat(document.getElementById('meta_score').value);
+        predict('knn', [revenue, imdb_rating, meta_score]);
+    }
+</script>
+{% endblock %} 

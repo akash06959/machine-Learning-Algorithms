@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Polynomial Regression - Gross Revenue Prediction{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Gross Revenue Prediction</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form id="predictionForm" onsubmit="handleSubmit(event)">
+                        <div class="mb-3">
+                            <label for="imdb_rating" class="form-label">IMDb Rating (1-10)</label>
+                            <input type="number" class="form-control" id="imdb_rating" name="imdb_rating" 
+                                   min="1" max="10" step="any" required>
+                            <div class="form-text">Enter the movie's IMDb rating between 1 and 10</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Predict Gross Revenue</button>
+                    </form>
+                    
+                    <div id="result" class="mt-4" style="display: none;">
+                        <div class="alert alert-info">
+                            <h4 class="alert-heading">Prediction Result</h4>
+                            <p class="mb-0">Predicted Gross Revenue: <span id="predictionValue"></span></p>
+                        </div>
+                    </div>
+                    
+                    <div id="accuracy-box" class="mt-4" style="display: none;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Model Accuracy</h5>
+                                <p class="card-text display-4">93.81%</p>
+                                <p class="card-text text-muted">Based on training data</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const imdb_rating = parseFloat(document.getElementById('imdb_rating').value);
+        
+        // Send only the IMDb rating
+        predict('pr', [imdb_rating]);
+    }
+
+    function predict(modelName, features) {
+        fetch(`/predict/${modelName}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ features: features })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+            
+            // Show prediction result
+            const resultDiv = document.getElementById('result');
+            const predictionValue = document.getElementById('predictionValue');
+            resultDiv.style.display = 'block';
+            predictionValue.textContent = data.prediction;
+            
+            // Show accuracy box if available
+            if (data.accuracy_display) {
+                const accuracyBox = document.getElementById('accuracy-box');
+                accuracyBox.style.display = 'block';
+                setTimeout(() => {
+                    accuracyBox.classList.add('show');
+                }, 100);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while making the prediction.');
+        });
+    }
+</script>
+
+<style>
+    .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .btn-primary {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    
+    #accuracy-box {
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    
+    #accuracy-box.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+{% endblock %} 

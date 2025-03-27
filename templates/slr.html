@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Simple Linear Regression - IMDb Rating Prediction{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="page-title">IMDb Rating Prediction</h1>
+    <p class="lead mb-4">Enter movie runtime to predict its IMDb Rating</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="model-container">
+            <form id="predictionForm" onsubmit="handleSubmit(event)">
+                <div class="mb-4">
+                    <label for="runtime" class="form-label">Movie Runtime (minutes)</label>
+                    <input type="number" class="form-control" id="runtime" required min="30" max="300" placeholder="e.g., 120">
+                    <div class="form-text">Enter the movie runtime between 30 and 300 minutes</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Predict Rating</button>
+                </div>
+            </form>
+            <div id="prediction" class="prediction-result mt-4"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const runtime = parseFloat(document.getElementById('runtime').value);
+        predict('slr', [runtime]);
+    }
+</script>
+{% endblock %} 

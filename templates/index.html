@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Movie Prediction Models{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="page-title">Movie Prediction Models</h1>
+    <p class="lead mb-4">Select a model to make predictions</p>
+</div>
+
+<div class="buttons-container">
+    <a href="/slr" class="home-button">
+        <span class="model-name">Simple Linear Regression</span>
+        <span class="model-description">IMDb Rating Prediction</span>
+    </a>
+    <a href="/mlr" class="home-button">
+        <span class="model-name">Multiple Linear Regression</span>
+        <span class="model-description">Gross Revenue Prediction</span>
+    </a>
+    <a href="/lr" class="home-button">
+        <span class="model-name">Logistic Regression</span>
+        <span class="model-description">Hit/Flop Classification</span>
+    </a>
+    <a href="/pr" class="home-button">
+        <span class="model-name">Polynomial Regression</span>
+        <span class="model-description">Revenue Prediction</span>
+    </a>
+    <a href="/knn" class="home-button">
+        <span class="model-name">K-Nearest Neighbors</span>
+        <span class="model-description">Success Classification</span>
+    </a>
+</div>
+{% endblock %} 
